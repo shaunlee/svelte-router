@@ -1,16 +1,16 @@
 <script>
-  import { router, createRouter, urlQuery, Link, View } from '@shaun/svelterouter'
+  import { createRouter, urlQuery, Link, View } from '../../lib'
 
   import Home from './pages/Home.svelte'
   import Hello from './pages/Hello.svelte'
   import Page from './pages/Page.svelte'
 
-  createRouter({ routes: [
+  const router = createRouter({ routes: [
     { path: '/', component: Home },
     { path: '/hello', component: Hello },
     { path: '/hello/:name', component: Hello },
     { path: '/page', component: Page },
-  ], mode: 'web', base: '/demo' })
+  ], mode: 'hash', base: '/demo' })
 </script>
 
 <section class="fixed inset-0 flex flex-row relative">
