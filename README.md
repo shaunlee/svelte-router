@@ -54,6 +54,10 @@ User.svelte
 <div>User ID: {userId}</div>
 ```
 
+## Example
+
+[https://github.com/shaunlee/svelterouter/tree/master/example](https://github.com/shaunlee/svelterouter/tree/master/example)
+
 ## Dynamic Route Matching with Params
 
 Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In Vue Router we can use a dynamic segment in the path to achieve that, we call that a param:
@@ -272,15 +276,6 @@ location / {
 try_files {path} /
 ```
 
-### Caddy v1
-
-```
-rewrite {
-    regexp .*
-    to {path} /
-}
-```
-
 ### Firebase hosting
 
 Add this to your `firebase.json`:
@@ -298,10 +293,6 @@ Add this to your `firebase.json`:
   }
 }
 ```
-
-## Example
-
-[https://github.com/shaunlee/svelterouter/tree/master/example](https://github.com/shaunlee/svelterouter/tree/master/example)
 
 ## License
 
