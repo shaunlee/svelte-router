@@ -1,8 +1,9 @@
 {
   "name": "@shaun/svelterouter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Another vue-router inspired Svelte router",
   "main": "./lib/index.js",
+  "svelte": "./lib/index.js",
   "keywords": [
     "Svelte",
     "router"
@@ -11,6 +12,9 @@
   "license": "MIT",
   "homepage": "https://github.com/shaunlee/svelterouter",
   "devDependencies": {
+    "svelte": "^3.0.0"
+  },
+  "peerDependencies": {
     "svelte": "^3.0.0"
   }
 }
