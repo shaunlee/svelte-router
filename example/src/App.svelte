@@ -1,5 +1,5 @@
 <script>
-  import { createRouter, urlQuery, Link, View } from '../../lib'
+  import { createRouter, urlQuery, Link, View } from '@shaun/svelterouter'
 
   import Home from './pages/Home.svelte'
   import Hello from './pages/Hello.svelte'
