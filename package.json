@@ -1,6 +1,6 @@
 {
   "name": "@shaun/svelterouter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Another vue-router inspired Svelte router",
   "main": "./lib/index.js",
   "svelte": "./lib/index.js",
