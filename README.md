@@ -93,7 +93,7 @@ The same:
 You can have multiple params in the same route, and they will map to corresponding fields on `$router.params`. Examples:
 
 | pattern | matched path | $router.params |
-| - | - | - |
+| --- | --- | --- |
 | /users/:username /users/eduardo | `{ username: 'eduardo' }` |
 | /users/:username/posts/:postId | /users/eduardo/posts/123 | `{ username: 'eduardo', postId: '123' }` |
 
@@ -145,7 +145,7 @@ To navigate to a different URL, use `router.push`. This method pushes a new entr
 This is the method called internally when you click a `<Link>`, so clicking `<Link href="...">` is the equivalent of calling `router.push(...)`.
 
 | Declarative | Programmatic |
-| - | - |
+| --- | --- |
 | `<Link href="...">` | `router.push(...)` |
 
 The argument is a string path. Examples:
@@ -162,7 +162,7 @@ router.push('/users', { page: 2 })
 It acts like `router.push`, the only difference is that it navigates without pushing a new history entry, as its name suggests - it replaces the current entry.
 
 | Declarative | Programmatic |
-| - | - |
+| --- | --- |
 | `<Link href="..." replace>` | `router.replace('...')` |
 
 ### Traverse history
