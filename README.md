@@ -94,7 +94,7 @@ You can have multiple params in the same route, and they will map to correspondi
 
 | pattern | matched path | $router.params |
 | --- | --- | --- |
-| /users/:username /users/eduardo | `{ username: 'eduardo' }` |
+| /users/:username | /users/eduardo | `{ username: 'eduardo' }` |
 | /users/:username/posts/:postId | /users/eduardo/posts/123 | `{ username: 'eduardo', postId: '123' }` |
 
 In addition to `$router.params`, the $router object also exposes other useful information such as $route.query (if there is a query in the URL), `$router.path`, etc.
