@@ -5,11 +5,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/xyz/",
+    "build": "vite build --base=/demo/",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@shaun/svelterouter": "^1.0.6"
+    "@shaun/svelterouter": "^1.0.7"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
