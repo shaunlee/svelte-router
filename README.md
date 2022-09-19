@@ -60,7 +60,7 @@ User.svelte
 
 ## Dynamic Route Matching with Params
 
-Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In Vue Router we can use a dynamic segment in the path to achieve that, we call that a param:
+Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In @shaun/svelterouter we can use a dynamic segment in the path to achieve that, we call that a param:
 
 ```javascript
 import User from './User.svelte'
@@ -105,7 +105,7 @@ In addition to `$router.params`, the $router object also exposes other useful in
 
 ## Routes' Matching Syntax
 
-Most applications will use static routes like /about and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but Vue Router has much more to offer!
+Most applications will use static routes like /about and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but @shaun/svelterouter has much more to offer!
 
 ### Custom regex in params
 
