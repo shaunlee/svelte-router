@@ -6,7 +6,9 @@
   "svelte": "./lib/index.js",
   "keywords": [
     "svelterouter",
+    "svelte router",
     "Svelte",
+    "sveltejs",
     "router"
   ],
   "author": "Shaun Li <shonhen@gmail.com>",
