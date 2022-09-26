@@ -5,12 +5,13 @@
   import Hello from './pages/Hello.svelte'
   import Page from './pages/Page.svelte'
 
-  const router = createRouter({ routes: [
+  const routes = [
     { path: '/', component: Home },
     { path: '/hello', component: Hello },
     { path: '/hello/:name', component: Hello },
     { path: '/page', component: Page },
-  ], mode: 'hash', base: '/demo' })
+  ]
+  const router = createRouter({ routes, base: '/demo/' })
 </script>
 
 <section class="fixed inset-0 flex flex-row relative">
@@ -24,6 +25,9 @@
       </li>
       <li>
         <Link href="/hello/word" class="text-blue-400 hover:underline" activeClass="text-blue-800">Hello world</Link>
+      </li>
+      <li>
+        <a use:link href="/hello/link" class="text-blue-400 hover:underline">Hello link</a>
       </li>
       <li>
         <Link href="/page" class="text-blue-400 hover:underline" activeClass="text-blue-800">Page 1</Link>
@@ -46,6 +50,9 @@
     </ul>
   </aside>
   <main class="flex-1">
-    <div class="p-4"><View></View></div>
+    <div class="p-4">
+      <div class="pb-4">{JSON.stringify($router)}</div>
+      <View></View>
+    </div>
   </main>
 </section>
