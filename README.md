@@ -20,7 +20,7 @@ yarn add @shaun/svelterouter
 
 ```html
 <script>
-  import { createRouter, Link, View } from '@shaun/svelterouter'
+  import { createRouter, link, Link, View } from '@shaun/svelterouter'
   import Home from './Home.svelte'
   import User from './User.svelte'
   import NotFound from './NotFound.svelte'
@@ -37,6 +37,7 @@ yarn add @shaun/svelterouter
 <Link href="/">Home</Link>
 <Link href="/users/123">Someone</Link>
 <Link href="/users/321" replace>Replace to someone else's page</Link>
+<a use:link href="/users/111">a link with action</a>
 <Link href="/not-exists">To page not exists</Link>
 <button type="button" on:click={() => router.push('/users/123')}>Click to someone's page</button>
 <button type="button" on:click={() => router.replace('/users/321')}>Click replace to someone else's page</button>
