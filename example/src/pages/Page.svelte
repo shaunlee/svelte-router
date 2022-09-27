@@ -1,5 +1,5 @@
 <script>
-  import { router } from '@shaun/svelterouter'
+  import { router } from '../../../lib'
 </script>
 
 <h1>Page {$router.query.page || 1}</h1>
