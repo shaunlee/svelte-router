@@ -8,9 +8,6 @@
     "build": "vite build --base=/demo/",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@shaun/svelterouter": "^1.0.9"
-  },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^1.0.2",
     "svelte": "^3.49.0",
