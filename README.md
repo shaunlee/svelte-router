@@ -61,7 +61,7 @@ User.svelte
 
 ## Dynamic Route Matching with Params
 
-Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In @shaun/svelterouter we can use a dynamic segment in the path to achieve that, we call that a param:
+Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In `@shaun/svelterouter` we can use a dynamic segment in the path to achieve that, we call that a param:
 
 ```javascript
 import User from './User.svelte'
@@ -102,17 +102,17 @@ You can have multiple params in the same route, and they will map to correspondi
 | /users/:username | /users/eduardo | `{ username: 'eduardo' }` |
 | /users/:username/posts/:postId | /users/eduardo/posts/123 | `{ username: 'eduardo', postId: '123' }` |
 
-In addition to `$router.params`, the $router object also exposes other useful information such as $route.query (if there is a query in the URL), `$router.path`, etc.
+In addition to `$router.params`, the `$router` object also exposes other useful information such as `$router.query` (if there is a query in the URL), `$router.path`, etc.
 
 ## Routes' Matching Syntax
 
-Most applications will use static routes like /about and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but @shaun/svelterouter has much more to offer!
+Most applications will use static routes like `/about` and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but `@shaun/svelterouter` has much more to offer!
 
 ### Custom regex in params
 
 When defining a param like `:userId`, we internally use the following regex `([^/]+)` (at least one character that isn't a slash `/`) to extract params from URLs.
-This works well unless you need to differentiate two routes based on the param content. Imagine two routes `/:orderId` and `/:productName`, both would match the exact same URLs,
-so we need a way to differentiate them. The easiest way would be to add a static section to the path that differentiates them:
+This works well unless you need to differentiate two routes based on the param content. Imagine two routes `/:orderId` and `/:productName`, both would match the exact same URLs, so we need a way to differentiate them.
+The easiest way would be to add a static section to the path that differentiates them:
 
 ```javascript
 const routes = [
