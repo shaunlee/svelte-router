@@ -1,17 +1,19 @@
 <script>
-  import { createRouter, urlQuery, Link, View } from '../../lib'
+  import { createRouter, link, urlQuery, Link, View } from '../../lib'
 
   import Home from './pages/Home.svelte'
   import Hello from './pages/Hello.svelte'
   import Page from './pages/Page.svelte'
+  import NotFound from './pages/NotFound.svelte'
 
   const routes = [
     { path: '/', component: Home },
     { path: '/hello', component: Hello },
     { path: '/hello/:name', component: Hello },
     { path: '/page', component: Page },
+    { path: '*', component: NotFound },
   ]
-  const router = createRouter({ routes, base: '/demo/' })
+  const router = createRouter({ routes, base: '/demo' })
 </script>
 
 <section class="fixed inset-0 flex flex-row relative">
@@ -46,6 +48,9 @@
       </li>
       <li>
         <Link href={urlQuery('/page?a=b&page=1', { page: 10 })} class="text-blue-400 hover:underline" activeClass="text-blue-800">Page 10</Link>
+      </li>
+      <li>
+        <Link href="/not-found" class="text-blue-400 hover:underline">Not Found</Link>
       </li>
     </ul>
   </aside>
