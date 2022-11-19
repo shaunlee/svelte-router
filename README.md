@@ -7,20 +7,20 @@ Another vue-router inspired Svelte router
 ### npm
 
 ```bash
-npm install @shaun/svelter-router
+npm install @shaun/svelte-router
 ```
 
 ### yarn
 
 ```bash
-yarn add @shaun/svelter-router
+yarn add @shaun/svelte-router
 ```
 
 ## Getting Started
 
 ```html
 <script>
-  import { createRouter, link, Link, View } from '@shaun/svelter-router'
+  import { createRouter, link, Link, View } from '@shaun/svelte-router'
   import Home from './Home.svelte'
   import User from './User.svelte'
   import NotFound from './NotFound.svelte'
@@ -57,11 +57,11 @@ User.svelte
 
 ## Example
 
-[https://github.com/shaunlee/svelter-router/tree/master/example](https://github.com/shaunlee/svelter-router/tree/master/example)
+[https://github.com/shaunlee/svelte-router/tree/master/example](https://github.com/shaunlee/svelte-router/tree/master/example)
 
 ## Dynamic Route Matching with Params
 
-Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In `@shaun/svelter-router` we can use a dynamic segment in the path to achieve that, we call that a param:
+Very often we will need to map routes with the given pattern to the same component. For example we may have a `User` component which should be rendered for all users but with different user IDs. In `@shaun/svelte-router` we can use a dynamic segment in the path to achieve that, we call that a param:
 
 ```javascript
 import User from './User.svelte'
@@ -79,7 +79,7 @@ A param is denoted by a colon `:`. When a route is matched, the value of its par
 
 ```html
 <script>
-  import { router } from '@shaun/svelter-router'
+  import { router } from '@shaun/svelte-router'
 </script>
 
 <div>User ID: {$router.params.id}</div>
@@ -106,7 +106,7 @@ In addition to `$router.params`, the `$router` object also exposes other useful 
 
 ## Routes' Matching Syntax
 
-Most applications will use static routes like `/about` and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but `@shaun/svelter-router` has much more to offer!
+Most applications will use static routes like `/about` and dynamic routes like `/users/:userId` like we just saw in Dynamic Route Matching, but `@shaun/svelte-router` has much more to offer!
 
 ### Custom regex in params
 
@@ -193,9 +193,9 @@ router.go(100)
 
 You may have noticed that `router.push`, `router.replace` and `router.go` are counterparts of `window.history.pushState`, `window.history.replaceState` and `window.history.go`, and they do imitate the `window.history` APIs.
 
-Therefore, if you are already familiar with [Browser History APIs](https://developer.mozilla.org/en-US/docs/Web/API/History_API), manipulating history will feel familiar when using `@shaun/svelter-router`.
+Therefore, if you are already familiar with [Browser History APIs](https://developer.mozilla.org/en-US/docs/Web/API/History_API), manipulating history will feel familiar when using `@shaun/svelte-router`.
 
-It is worth mentioning that `@shaun/svelter-router` navigation methods (push, replace, go) work consistently no matter the kind of `mode` option is passed when creating the router instance.
+It is worth mentioning that `@shaun/svelte-router` navigation methods (push, replace, go) work consistently no matter the kind of `mode` option is passed when creating the router instance.
 
 ## Different History modes
 
@@ -206,7 +206,7 @@ The `mode` option when creating the router instance allows us to choose among di
 The hash history mode is created with `'hash'`:
 
 ```javascript
-import { createRouter } from '@shaun/svelter-router'
+import { createRouter } from '@shaun/svelte-router'
 
 const router = createRouter({
   mode: 'hash',
@@ -223,7 +223,7 @@ It uses a hash character (`#`) before the actual URL that is internally passed. 
 The HTML5 mode is created with `'web'` and is the recommended mode:
 
 ```javascript
-import { createRouter } from '@shaun/svelter-router'
+import { createRouter } from '@shaun/svelte-router'
 
 const router = createRouter({
   mode: 'web',
@@ -297,4 +297,4 @@ Add this to your `firebase.json`:
 
 ## License
 
-Licensed under [MIT](https://github.com/shaunlee/svelter-router/blob/master/LICENSE)
+Licensed under [MIT](https://github.com/shaunlee/svelte-router/blob/master/LICENSE)

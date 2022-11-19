@@ -1,6 +1,6 @@
 {
   "name": "@shaun/svelte-router",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Another vue-router inspired Svelte router",
   "type": "module",
   "main": "./lib/index.js",
@@ -24,5 +24,8 @@
   },
   "peerDependencies": {
     "svelte": "^3.0.0"
+  },
+  "dependencies": {
+    "rename": "^1.0.4"
   }
 }
