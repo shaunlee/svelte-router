@@ -1,12 +1,12 @@
 {
-  "name": "@shaun/svelterouter",
-  "version": "1.0.13",
+  "name": "@shaun/svelte-router",
+  "version": "1.0.14",
   "description": "Another vue-router inspired Svelte router",
   "type": "module",
   "main": "./lib/index.js",
   "svelte": "./lib/index.js",
   "keywords": [
-    "svelterouter",
+    "svelte-router",
     "svelte router",
     "Svelte",
     "sveltejs",
@@ -14,7 +14,7 @@
   ],
   "author": "Shaun Li <shonhen@gmail.com>",
   "license": "MIT",
-  "homepage": "https://github.com/shaunlee/svelterouter",
+  "homepage": "https://github.com/shaunlee/svelte-router",
   "devDependencies": {
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
