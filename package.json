@@ -1,10 +1,15 @@
 {
   "name": "@shaun/svelte-router",
-  "version": "1.0.15",
+  "version": "1.0.15.1",
   "description": "Another vue-router inspired Svelte router",
   "type": "module",
   "main": "./lib/index.js",
   "svelte": "./lib/index.js",
+  "exports": {
+    ".": {
+      "svelte": "./lib/index.js"
+    }
+  },
   "keywords": [
     "svelte-router",
     "svelte router",
