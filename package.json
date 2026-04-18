@@ -1,6 +1,6 @@
 {
   "name": "@shaun/svelte-router",
-  "version": "1.0.16",
+  "version": "2.0.0",
   "description": "Another vue-router inspired Svelte router",
   "packageManager": "bun@1.3.12",
   "type": "module",
