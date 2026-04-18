@@ -10,6 +10,12 @@ Another vue-router inspired Svelte router
 npm install @shaun/svelte-router
 ```
 
+### bun
+
+```bash
+bun add @shaun/svelte-router
+```
+
 ### yarn
 
 ```bash
@@ -55,9 +61,33 @@ User.svelte
 <div>User ID: {userId}</div>
 ```
 
+## Link Behavior
+
+### Active and exact active classes
+
+`<Link>` accepts `activeClass` and `exactActiveClass` props. They default to `active` and `exact-active`.
+
+```html
+<Link
+  href="/users"
+  activeClass="is-active"
+  exactActiveClass="is-exact-active"
+>
+  Users
+</Link>
+```
+
+`activeClass` is applied when the current route is the same path or a child path segment.
+For example, `/users` is active for `/users/123`, but not for `/users-old`.
+
+### External links
+
+The `link` action and `<Link>` only intercept same-origin app navigation.
+External URLs, `target="_blank"`, `download`, and modified clicks such as Cmd/Ctrl-click keep their native browser behavior.
+
 ## Example
 
-[https://github.com/shaunlee/svelte-router/tree/master/example](https://github.com/shaunlee/svelte-router/tree/master/example)
+[example](./example)
 
 ## Dynamic Route Matching with Params
 
@@ -153,13 +183,14 @@ This is the method called internally when you click a `<Link>`, so clicking `<Li
 | --- | --- |
 | `<Link href="...">` | `router.push(...)` |
 
-The argument is a string path. Examples:
+The first argument is a path or URL string. The optional second argument is an object that will be merged into the query string. Examples:
 
 ```javascript
 router.push('/users/eduardo')
 
 router.push('/users?page=2')
 router.push('/users', { page: 2 })
+router.push('https://example.com/docs')
 ```
 
 ### Replace current location
@@ -170,32 +201,42 @@ It acts like `router.push`, the only difference is that it navigates without pus
 | --- | --- |
 | `<Link href="..." replace>` | `router.replace('...')` |
 
-### Traverse history
-
-This method takes a single integer as parameter that indicates by how many steps to go forward or go backward in the history stack, similar to `window.history.go(n)`. Examples:
-
-```javascript
-// go forward by one record, the same as router.forward()
-router.go(1)
-
-// go back by one record, the same as router.back()
-router.go(-1)
-
-// go forward by 3 records
-router.go(3)
-
-// fails silently if there aren't that many records
-router.go(-100)
-router.go(100)
-```
-
 ### History Manipulation
 
-You may have noticed that `router.push`, `router.replace` and `router.go` are counterparts of `window.history.pushState`, `window.history.replaceState` and `window.history.go`, and they do imitate the `window.history` APIs.
+You may have noticed that `router.push` and `router.replace` are counterparts of `window.history.pushState` and `window.history.replaceState`, and they do imitate those browser APIs for in-app navigation.
 
 Therefore, if you are already familiar with [Browser History APIs](https://developer.mozilla.org/en-US/docs/Web/API/History_API), manipulating history will feel familiar when using `@shaun/svelte-router`.
 
-It is worth mentioning that `@shaun/svelte-router` navigation methods (push, replace, go) work consistently no matter the kind of `mode` option is passed when creating the router instance.
+It is worth mentioning that `@shaun/svelte-router` navigation methods (`push` and `replace`) work consistently no matter the kind of `mode` option is passed when creating the router instance.
+
+## Base Path
+
+If your app is deployed under a subfolder, set the same base path in your router and your build tool.
+
+```javascript
+import { createRouter } from '@shaun/svelte-router'
+
+const router = createRouter({
+  base: '/demo',
+  routes: [
+    // ...
+  ]
+})
+```
+
+With Vite, build with the same base:
+
+```bash
+vite build --base=/demo/
+```
+
+You can also use `urlQuery()` to build links that respect the current router base:
+
+```javascript
+import { urlQuery } from '@shaun/svelte-router'
+
+const href = urlQuery('/page?page=1', { page: 10 })
+```
 
 ## Different History modes
 
