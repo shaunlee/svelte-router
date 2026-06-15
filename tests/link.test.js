@@ -125,4 +125,38 @@ describe('link action', () => {
     downloadAction.destroy()
     blankAction.destroy()
   })
+
+  test('updates active class names when link attrs change', () => {
+    installBrowserEnv('http://localhost/app/docs')
+    const { createRouter, link } = loadRouteModule()
+
+    createRouter({
+      base: '/app',
+      routes: [
+        { path: '/docs', component: 'docs' }
+      ]
+    })
+
+    const anchor = createAnchor({ href: '/docs' })
+    const action = link(anchor, { active: 'active-old', exactActive: 'exact-old' })
+
+    expect(anchor.classList.contains('active-old')).toBe(true)
+    expect(anchor.classList.contains('exact-old')).toBe(true)
+
+    action.update({ activeClass: 'active-new', exactActiveClass: 'exact-new' })
+
+    expect(anchor.classList.contains('active-old')).toBe(false)
+    expect(anchor.classList.contains('exact-old')).toBe(false)
+    expect(anchor.classList.contains('active-new')).toBe(true)
+    expect(anchor.classList.contains('exact-new')).toBe(true)
+
+    action.update()
+
+    expect(anchor.classList.contains('active-new')).toBe(false)
+    expect(anchor.classList.contains('exact-new')).toBe(false)
+    expect(anchor.classList.contains('active')).toBe(true)
+    expect(anchor.classList.contains('exact-active')).toBe(true)
+
+    action.destroy()
+  })
 })

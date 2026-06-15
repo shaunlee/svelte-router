@@ -1,6 +1,6 @@
 {
   "name": "@shaun/svelte-router",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Another vue-router inspired Svelte router",
   "packageManager": "bun@1.3.12",
   "type": "module",
@@ -9,6 +9,23 @@
   "exports": {
     ".": {
       "svelte": "./lib/index.js"
+    }
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "lib/matcher.js",
+      "lib/path.js",
+      "lib/pattern.js",
+      "lib/route.js",
+      "lib/url.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
     }
   },
   "keywords": [

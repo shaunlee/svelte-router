@@ -58,6 +58,12 @@ describe('URL', () => {
       expect(u.query).toStrictEqual({a: '1', b: 'c'})
     })
 
+    test('parse path without query', () => {
+      const u = new RouterURL('http://localhost/#/hello/world', { mode: 'hash' })
+      expect(u.path).toBe('/hello/world')
+      expect(u.query).toStrictEqual({})
+    })
+
     test('resolve url', () => {
       const u = new RouterURL('http://localhost/#/hello/world?a=1&b=c', { mode: 'hash' })
       expect(u.resolve('/xyz', {a: '123', d: 1}).url).toBe('http://localhost/#/xyz?a=123&b=c&d=1')

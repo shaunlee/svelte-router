@@ -123,4 +123,71 @@ describe('router integration', () => {
     expect(location.replace).toHaveBeenCalledWith('mailto:test@example.com')
     expect(history.replaceState).not.toHaveBeenCalled()
   })
+
+  test('resolves absolute same-origin urls and exported query urls', () => {
+    installBrowserEnv('http://localhost/app/?page=1')
+    const { createRouter, router, urlQuery } = loadRouteModule()
+
+    createRouter({
+      base: '/app',
+      routes: [
+        { path: '/', component: 'home' },
+        { path: '/docs', component: 'docs' }
+      ]
+    })
+
+    let currentState
+    router.subscribe((value) => {
+      currentState = value
+    })
+
+    router.push('http://localhost/app/docs?tab=api', { page: 2 })
+
+    expect(history.pushState).toHaveBeenCalledWith({}, '', 'http://localhost/app/docs?tab=api&page=2')
+    expect(currentState).toStrictEqual({
+      component: 'docs',
+      path: '/docs',
+      query: { tab: 'api', page: '2' },
+      params: {}
+    })
+    expect(urlQuery('/docs', { tab: 'guide' })).toBe('http://localhost/app/docs?tab=guide')
+  })
+
+  test('normalizes web base and avoids duplicate navigation to the current url', () => {
+    installBrowserEnv('http://localhost/app/docs')
+    const { createRouter, router } = loadRouteModule()
+
+    createRouter({
+      base: '/app/',
+      routes: [
+        { path: '/docs', component: 'docs' }
+      ]
+    })
+    createRouter({
+      base: '/app/',
+      routes: [
+        { path: '/docs', component: 'docs' }
+      ]
+    })
+
+    router.push('/docs')
+    router.replace('/docs')
+
+    expect(history.pushState).not.toHaveBeenCalled()
+    expect(history.replaceState).not.toHaveBeenCalled()
+  })
+
+  test('resolves hash urls without a base or explicit query', () => {
+    installBrowserEnv('http://localhost/')
+    const { createRouter, urlQuery } = loadRouteModule()
+
+    createRouter({
+      mode: 'hash',
+      routes: [
+        { path: '/', component: 'home' }
+      ]
+    })
+
+    expect(urlQuery('/docs')).toBe('http://localhost/#/docs')
+  })
 })

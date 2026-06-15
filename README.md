@@ -164,10 +164,38 @@ const routes = [
 ]
 ```
 
-Now, going to `/25` will match `/:orderId` while going to anything else will match `/:productName`. The order of the `routes` array doesn't even matter!
+Now, going to `/25` will match `/:orderId` while going to anything else will match `/:productName`, as long as the more specific numeric route is declared first.
 
 > **TIP**
 > Make sure to escape backslashes (`\`) like we did with `\d` (becomes `\\d`) to actually pass the backslash character in a string in JavaScript.
+
+### Route order
+
+When more than one route can match the same path, the first matching route in the `routes` array wins.
+Put more specific routes before broader fallback routes:
+
+```javascript
+const routes = [
+  { path: '/:orderId(\\d+)', component: Order },
+  { path: '/:productName', component: Product },
+  { path: '*', component: NotFound },
+]
+```
+
+### Matcher benchmark
+
+The matcher indexes static routes and dynamic routes separately, then preserves route declaration order when multiple routes could match the same path.
+
+Local microbenchmark, comparing the current matcher against the previous matcher implementation:
+
+| Scenario | Before | After | Ratio |
+| --- | ---: | ---: | ---: |
+| Static route, static declared before dynamics | 68.375 ms | 15.332 ms | 4.46x faster |
+| Wildcard route, wildcard declared before dynamics | 147.088 ms | 19.379 ms | 7.59x faster |
+| Static route, dynamics declared before static | 35.993 ms | 36.140 ms | ~same |
+| Dense dynamic miss then fallback dynamic match | 1555.587 ms | 1485.975 ms | 1.05x faster |
+
+These numbers are median timings from 12 runs. The fast path helps most when declaration order allows a static or wildcard route to return before dynamic route candidates need to be checked.
 
 ## Programmatic Navigation
 

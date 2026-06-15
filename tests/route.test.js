@@ -1,6 +1,17 @@
 import { buildRouteMatcher } from '../lib/matcher'
 
 describe('route matcher', () => {
+  test('matches root routes directly', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/', component: 'home' }
+    ])
+
+    expect(matchRoute('/')).toStrictEqual({
+      component: 'home',
+      params: {}
+    })
+  })
+
   test('matches static routes directly', () => {
     const matchRoute = buildRouteMatcher([
       { path: '/users/:id', component: 'user' },
@@ -38,6 +49,30 @@ describe('route matcher', () => {
     })
   })
 
+  test('matches keyed dynamic routes before later fallback routes', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/users/:id', component: 'user' },
+      { path: '/:section/:id', component: 'generic' }
+    ])
+
+    expect(matchRoute('/users/42')).toStrictEqual({
+      component: 'user',
+      params: { id: '42' }
+    })
+  })
+
+  test('keeps the first duplicate static route', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/about', component: 'first' },
+      { path: '/about', component: 'second' }
+    ])
+
+    expect(matchRoute('/about')).toStrictEqual({
+      component: 'first',
+      params: {}
+    })
+  })
+
   test('preserves wildcard precedence when declared before exact routes', () => {
     const matchRoute = buildRouteMatcher([
       { path: '*', component: 'fallback' },
@@ -59,6 +94,64 @@ describe('route matcher', () => {
     expect(matchRoute('/users/new')).toStrictEqual({
       component: 'dynamic',
       params: { id: 'new' }
+    })
+  })
+
+  test('continues through keyed dynamic routes until one matches', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/users/:id(\\d+)', component: 'id' },
+      { path: '/users/:name', component: 'name' }
+    ])
+
+    expect(matchRoute('/users/shaun')).toStrictEqual({
+      component: 'name',
+      params: { name: 'shaun' }
+    })
+  })
+
+  test('falls back to later static routes after dynamic misses', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/:id(\\d+)', component: 'number' },
+      { path: '/about', component: 'about' }
+    ])
+
+    expect(matchRoute('/about')).toStrictEqual({
+      component: 'about',
+      params: {}
+    })
+  })
+
+  test('falls back to later wildcard routes after dynamic misses', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/:id(\\d+)', component: 'number' },
+      { path: '*', component: 'fallback' }
+    ])
+
+    expect(matchRoute('/about')).toStrictEqual({
+      component: 'fallback',
+      params: {}
+    })
+  })
+
+  test('returns an empty match when no routes match', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/:id(\\d+)', component: 'number' }
+    ])
+
+    expect(matchRoute('/about')).toStrictEqual({
+      component: '',
+      params: {}
+    })
+  })
+
+  test('returns an empty match for root when no root route matches', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/:page', component: 'page' }
+    ])
+
+    expect(matchRoute('/')).toStrictEqual({
+      component: '',
+      params: {}
     })
   })
 })
