@@ -121,6 +121,18 @@ describe('route matcher', () => {
     })
   })
 
+  test('falls back to later static routes when no dynamic bucket can match', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/users/:id', component: 'user' },
+      { path: '/about', component: 'about' }
+    ])
+
+    expect(matchRoute('/about')).toStrictEqual({
+      component: 'about',
+      params: {}
+    })
+  })
+
   test('falls back to later wildcard routes after dynamic misses', () => {
     const matchRoute = buildRouteMatcher([
       { path: '/:id(\\d+)', component: 'number' },
@@ -133,12 +145,35 @@ describe('route matcher', () => {
     })
   })
 
+  test('falls back to later wildcard routes when no keyed dynamic route can match', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/users/:id', component: 'user' },
+      { path: '*', component: 'fallback' }
+    ])
+
+    expect(matchRoute('/posts/1')).toStrictEqual({
+      component: 'fallback',
+      params: {}
+    })
+  })
+
   test('returns an empty match when no routes match', () => {
     const matchRoute = buildRouteMatcher([
       { path: '/:id(\\d+)', component: 'number' }
     ])
 
     expect(matchRoute('/about')).toStrictEqual({
+      component: '',
+      params: {}
+    })
+  })
+
+  test('returns an empty match when only static routes miss', () => {
+    const matchRoute = buildRouteMatcher([
+      { path: '/about', component: 'about' }
+    ])
+
+    expect(matchRoute('/missing')).toStrictEqual({
       component: '',
       params: {}
     })

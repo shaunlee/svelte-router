@@ -1,6 +1,23 @@
 # Svelte Router
 
-Another vue-router inspired Svelte router
+![NPM](https://img.shields.io/npm/l/@shaun/svelte-router)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/shaunlee/svelte-router)
+
+A lightweight Svelte router with declarative links, dynamic params, wildcard routes, and hash or HTML5 history modes.
+
+## Router benchmark
+
+Example result from a local matcher microbenchmark on Node.js v26.2.0:
+
+| Routes per type | Total routes | Case | ops/sec | us/op |
+| --- | ---: | --- | ---: | ---: |
+| 1000 | 4001 | match static | 28,051,797 | 0.036 |
+| 1000 | 4001 | match dynamic first | 1,482,711 | 0.674 |
+| 1000 | 4001 | match dynamic last | 1,161,006 | 0.861 |
+| 1000 | 4001 | match no dynamic bucket | 12,001,774 | 0.083 |
+| 1000 | 4001 | match no keyed dynamic | 7,300,384 | 0.137 |
+
+Static routes are matched directly. Dynamic routes are indexed by segment count and first static segment, with wildcard-first dynamic routes used as a fallback while preserving declaration order.
 
 ## Installation
 
@@ -181,21 +198,6 @@ const routes = [
   { path: '*', component: NotFound },
 ]
 ```
-
-### Matcher benchmark
-
-The matcher indexes static routes and dynamic routes separately, then preserves route declaration order when multiple routes could match the same path.
-
-Local microbenchmark, comparing the current matcher against the previous matcher implementation:
-
-| Scenario | Before | After | Ratio |
-| --- | ---: | ---: | ---: |
-| Static route, static declared before dynamics | 68.375 ms | 15.332 ms | 4.46x faster |
-| Wildcard route, wildcard declared before dynamics | 147.088 ms | 19.379 ms | 7.59x faster |
-| Static route, dynamics declared before static | 35.993 ms | 36.140 ms | ~same |
-| Dense dynamic miss then fallback dynamic match | 1555.587 ms | 1485.975 ms | 1.05x faster |
-
-These numbers are median timings from 12 runs. The fast path helps most when declaration order allows a static or wildcard route to return before dynamic route candidates need to be checked.
 
 ## Programmatic Navigation
 

@@ -1,7 +1,7 @@
 {
   "name": "@shaun/svelte-router",
-  "version": "2.0.1",
-  "description": "Another vue-router inspired Svelte router",
+  "version": "2.0.2",
+  "description": "A lightweight Svelte router with declarative links, dynamic params, wildcard routes, and hash or HTML5 history modes.",
   "packageManager": "bun@1.3.12",
   "type": "module",
   "main": "./lib/index.js",
